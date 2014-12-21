@@ -28,7 +28,7 @@ Requirements
 
 Installation (zip-bundle release)
 =====
-* Download zip-bundle release from (GitHub)[https://github.com/DevelopersPL/DevAAC/releases] (green button)
+* Download zip-bundle release from [GitHub](https://github.com/DevelopersPL/DevAAC/releases) (green button)
 * Unpack to a directory higher then your web root, so that public_html is the web root (you can rename it if you need)
 * If you use nginx, you can find sample vhost config [in our wiki](https://github.com/DevelopersPL/DevAAC/wiki)
 * Rename ```config.sample.php``` to ```config.php``` and follow instructions in it
@@ -55,7 +55,7 @@ Hacking
 * [Slim](http://slimframework.com) framework [documentation](http://docs.slimframework.com/)
 * API documentation is awesome thanks to [Swagger](https://helloreverb.com/developers/swagger). Put [Swagger Annotations](http://zircote.com/swagger-php/annotations.html) in the code!
 * You can use [Vagrant](http://www.vagrantup.com/) to setup a development machine. [Install Vagrant](http://www.vagrantup.com/downloads), execute ```vagrant up``` in project root and connect to [http://localhost:8044/](http://localhost:8044/)
-* Swagger docs are dynamically server at /api-docs
+* Swagger docs are dynamically served at /api/v1/docs
 
 You can generate Swagger API docs manually:
 ```
