@@ -20,21 +20,41 @@
  * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @package    DevAAC
- * @author     Daniel Speichert <daniel@speichert.pl>
- * @author     Wojciech Guziak <wojciech@guziak.net>
- * @copyright  2014 Developers.pl
+ * @package    DevAAC - Items
+ * @author     Bruno Novais <cardososp@gmail.com>
+ * @copyright  2015 Bruno Novais
  * @license    http://opensource.org/licenses/MIT MIT
- * @version    master
- * @link       https://github.com/DevelopersPL/DevAAC
+ * @version    development
+ * @link       https://github.com/novasdream/DevAAC
  */
+
 
 namespace DevAAC\Models;
 
-class AccountPublic extends Account {
+// https://github.com/illuminate/database/blob/master/Eloquent/Model.php
+// https://github.com/otland/forgottenserver/blob/master/schema.sql
 
-    protected $table = 'accounts';
+/**
+ * @SWG\Model(required="['name','password','email']")
+ */
+class Wiki_Item_Attr extends \Illuminate\Database\Eloquent\Model {
+    /**
+     * @SWG\Property(name="id", type="integer")
+     * @SWG\Property(name="name", type="string")
+     * @SWG\Property(name="password", type="SHA1 hash")
+     * @SWG\Property(name="type", type="integer")
+     * @SWG\Property(name="premdays", type="integer")
+     * @SWG\Property(name="lastday", type="integer")
+     * @SWG\Property(name="email", type="string")
+     * @SWG\Property(name="creation", type="DateTime::ISO8601")
+     */
+    protected $table = 'wiki_item_attr';
+    protected $hidden = array('item_id');
 
-    protected $hidden = array('name', 'password', 'email','shop_coins' );
+    public function item()
+    {
+        return $this->belongsTo('DevAAC\Models\Wiki_Item');
+    }
+
 
 }

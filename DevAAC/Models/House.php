@@ -55,6 +55,8 @@ class House extends \Illuminate\Database\Eloquent\Model {
      * @SWG\Property(name="size", type="integer")
      * @SWG\Property(name="beds", type="integer")
      */
+
+
     public $timestamps = false;
 
     protected $guarded = array('id');
@@ -95,6 +97,33 @@ class House extends \Illuminate\Database\Eloquent\Model {
         $date = new DateTime();
         $date->setTimestamp($this->attributes['bid_end']);
         return $date;
+    }
+
+
+    public function getTownIdAttribute()
+    {
+        if($this->attributes['town_id'] === 0)
+            return 0;
+
+        $town_id = $this->attributes['town_id'];
+        $town = [];
+        $town[1] = 'Venore';
+        $town[2] = 'Thais';
+        $town[3] = 'Kazordoon';
+        $town[4] = 'Carlin';
+        $town[5] = "Ab'Dendriel";
+        $town[7] = 'Liberty Bay';
+        $town[8] = 'Port Hope';
+        $town[9] = 'Ankrahmun';
+        $town[10]= 'Darashia';
+        $town[11]= 'Cormaya';
+        $town[12]= 'Svargrond';
+        $town[13]= 'Yalahar';
+        $town[14]= 'Farmine';
+        if (!isset($town[$town_id])) {
+            return $town_id;
+        }
+        return $town[$town_id];
     }
 
     public function setBidEndAttribute($d)

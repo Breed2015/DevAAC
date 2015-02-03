@@ -1,0 +1,45 @@
+<div>
+
+
+<div>
+<h1 class="page-header">Item </h1>
+    <div class="col-lg-12 ">
+        <ul class="list-unstyled pull-right">
+      <li>
+        <a class="btn btn-xs btn-warning">
+          <span >Sword of Valor</span>
+        </a>
+      </li>
+    </ul>
+        <div>
+            <div class="row">
+            <div class="col-xs-2 col-sm-2">
+                <img class="center-block" src="http://item-images.ots.me/1030/{{item.id }}.gif"/>
+            </div>
+            <div class="col-xs-8 col-sm-8">
+                <span class="lead"><b>{{item.name | capitalize}}</b></span>
+                <div class="has-success"><small ><b>(Atk: 14, Def: 12 +1).</b></small> </div>
+                <div ng-repeat="attr in item.attributes" ng-if="attr.key == 'weight'" ><small ><b>It weighs {{attr.value/100}} oz.</b></small> </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2 col-sm-2">
+                    <span class="pull-right"><strong>Attributos:</strong></span>
+                </div>
+                <div class="col-xs-8 col-sm-8">
+                  <div ng-repeat="attr in item.attributes"  ng-if="attr.key == 'weaponType'">Tipo de item: {{ attr.value | capitalize }}</div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-xs-2 col-sm-2">
+                    <span class="pull-right"><strong>Drop de:</strong></span>
+                </div>
+                <div class="col-xs-8 col-sm-8 text-justify">
+                    <span  ng-repeat="lootMonster in item.loot"><a >{{lootMonster.name}}{{$last ? '.' : ', '}} </a></span>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
