@@ -1,0 +1,161 @@
+
+<div>
+    <h1 class="page-header">Shop <small><span ng-if="isLoggedIn()" class="label label-default ng-binding">{{account.shop_coins}} shop coins</span></small></h1>
+    <div ng-if="statusmsg.msg.length > 0" class="alert alert-{{statusmsg.type}}">{{statusmsg.msg}}</div>
+    <div role="tabpanel">
+
+
+    <!-- Nav tabs -->
+    <div class="tabbable">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active"><a data-target="#equipament" data-toggle="tab">Equipamento</a></li>
+            <li class=""><a data-target="#montaria" data-toggle="tab">Montaria</a></li>
+            <li class=""><a  data-target="#outfit"  data-toggle="tab">Outfit Addon</a></li>
+            <li class=""><a  data-target="#misc" data-toggle="tab">Objetos</a></li>
+            <li class=""><a  data-target="#decoration" data-toggle="tab">Decoração</a></li>
+            <li class=""><input ng-model="query" type="text" placeholder="Filter by" autofocus></li>
+
+
+
+        </ul>
+    </div>
+    <!-- Tab panes -->
+    <div class="tab-content" style="background-color:white;border-left:1px solid #ddd;border-right:1px solid #ddd;border-bottom:1px solid #ddd;padding:10px 15px 10px 15px">
+        <div role="tabpanel" class="tab-pane active" id="equipament">
+            <div ng-repeat="shop in shops |  filter:{category:'equipament', name: query}" ng-init="confirmable = false" >
+                <div   class="row">
+                    <div class="col-md-1"><img src="{{ shop.image_url }}"/></div>
+                    <div class="col-md-6"><strong>{{ shop.name }}</strong>
+                        <span class="label label-warning">{{ shop.price }} shop coins</span>
+                        <br>{{ shop.description }}
+                        <br>
+                        <small ng-if="shop.level_need" >Your character must be at least <span class="label label-danger">Level {{ shop.level_need }}</span> to purchase this item.</small>
+                    </div>
+                    <div  ng-if="isLoggedIn()"  class="col-md-3">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <select class="form-control" id="player"  ng-model="bidOffer.player" >
+                                    <option ng-repeat="player in players" id="{{player.id}}">{{player.name}}</option>
+                                </select>
+                                <button type="submit"  ng-show="!confirmable" ng-click="confirmable = true" class="btn btn-success">Pagar {{shop.price | number}} coin</button>
+                                <button type="submit"  ng-show="confirmable" ng-click="buyOffer(shop.id);confirmable = false" class="btn btn-small btn-danger">Clique para Confirmar </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div ng-if="!isLoggedIn()" class="col-md-4"><br>Efetue o login para utilizar a função.</div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="montaria">
+            <div ng-repeat="shop in shops |  filter:{category:'mount'}" >
+                <div   class="row">
+                    <div class="col-md-1"><img src="{{ shop.image_url }}" /></div>
+                    <div class="col-md-6"><strong>{{ shop.name }}</strong>
+                        <span class="label label-warning">{{ shop.price }} shop coins</span>
+                        <br>{{ shop.description }}
+                        <br>
+                        <small ng-if="shop.level_need" >Your character must be at least <span class="label label-danger">Level {{ shop.level_need }}</span> to purchase this item.</small>
+                    </div>
+                  <div  ng-if="isLoggedIn()"  class="col-md-3">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <select class="form-control" id="player"  ng-model="bidOffer.player" >
+                                    <option ng-repeat="player in players" id="{{player.id}}">{{player.name}}</option>
+                                </select>
+                                <button type="submit"  ng-show="!confirmable" ng-click="confirmable = true" class="btn btn-success">Pagar {{shop.price | number}} coin</button>
+                                <button type="submit"  ng-show="confirmable" ng-click="buyOffer(shop.id);confirmable = false" class="btn btn-small btn-danger">Clique para Confirmar </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div ng-if="!isLoggedIn()" class="col-md-4"><br>Efetue o login para utilizar a função.</div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="misc">
+           <div ng-repeat="shop in shops |  filter:{category:'misc'}" >
+                <div   class="row">
+                    <div class="col-md-1"><img src="{{ shop.image_url }}" /></div>
+                    <div class="col-md-6"><strong>{{ shop.name }}</strong>
+                        <span class="label label-warning">{{ shop.price }} shop coins</span>
+                        <br>{{ shop.description }}
+                        <br>
+                        <small>Your character must be at least <span class="label label-danger">Level {{ shop.level_need }}</span> to purchase this item.</small>
+                    </div>
+                    <div  ng-if="isLoggedIn()"  class="col-md-3">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <select class="form-control" id="player"  ng-model="bidOffer.player" >
+                                    <option ng-repeat="player in players" id="{{player.id}}">{{player.name}}</option>
+                                </select>
+                                <button type="submit"  ng-show="!confirmable" ng-click="confirmable = true" class="btn btn-success">Pagar {{shop.price | number}} coin</button>
+                                <button type="submit"  ng-show="confirmable" ng-click="buyOffer(shop.id);confirmable = false" class="btn btn-small btn-danger">Clique para Confirmar </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div ng-if="!isLoggedIn()" class="col-md-4"><br>Efetue o login para utilizar a função.</div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="outfit">
+            <div ng-repeat="shop in shops |  filter:{category:'outfit'}" >
+                <div class="row">
+                    <div class="col-md-1"><img src="{{ shop.image_url }}" /></div>
+                    <div class="col-md-6"><strong>{{ shop.name }}</strong>
+                        <span class="label label-warning">{{ shop.price }} shop coins</span>
+                        <br>{{ shop.description }}
+                        <br>
+                        <small>Your character must be at least <span class="label label-danger">Level {{ shop.level_need }}</span> to purchase this item.</small>
+                    </div>
+                   <div  ng-if="isLoggedIn()"  class="col-md-3">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <select class="form-control" id="player"  ng-model="bidOffer.player" >
+                                    <option ng-repeat="player in players" id="{{player.id}}">{{player.name}}</option>
+                                </select>
+                                <button type="submit"  ng-show="!confirmable" ng-click="confirmable = true" class="btn btn-success">Pagar {{shop.price | number}} coin</button>
+                                <button type="submit"  ng-show="confirmable" ng-click="buyOffer(shop.id);confirmable = false" class="btn btn-small btn-danger">Clique para Confirmar </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div ng-if="!isLoggedIn()" class="col-md-4"><br>Efetue o login para utilizar a função.</div>
+                </div>
+                <hr>
+            </div></div>
+        <div role="tabpanel" class="tab-pane" id="decoration">
+            <div ng-repeat="shop in shops |  filter:{category:'decoration'}" >
+                <div   class="row">
+                    <div class="col-md-1"><img src="{{ shop.image_url }}" /></div>
+                    <div class="col-md-6"><strong>{{ shop.name }}</strong>
+                        <span class="label label-warning">{{ shop.price }} shop coins</span>
+                        <br>{{ shop.description }}
+                        <br>
+                        <small>Your character must be at least <span class="label label-danger">Level {{ shop.level_need }}</span> to purchase this item.</small>
+                    </div>
+                    <div  ng-if="isLoggedIn()"  class="col-md-3">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <select class="form-control" id="player"  ng-model="bidOffer.player" >
+                                    <option ng-repeat="player in players" id="{{player.id}}">{{player.name}}</option>
+                                </select>
+                                <button type="submit"  ng-show="!confirmable" ng-click="confirmable = true" class="btn btn-success">Pagar {{shop.price | number}} coin</button>
+                                <button type="submit"  ng-show="confirmable" ng-click="buyOffer(shop.id);confirmable = false" class="btn btn-small btn-danger">Clique para Confirmar </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div ng-if="!isLoggedIn()" class="col-md-4"><br>Efetue o login para utilizar a função.</div>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <p ng-hide="loaded">
+        Loading...
+    </p>
+</div>
+
