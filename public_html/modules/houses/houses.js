@@ -35,6 +35,10 @@ DevAAC.controller('HouseController', ['$scope', '$routeParams', '$location', 'Ho
         $scope.house = house;
         $scope.ends = moment(house.bid_end).fromNow();
 
+        $scope.group = function(list, grouping) {
+            return _.groupBy(list, grouping);
+        };
+        $scope.grouping = "Thais";
         // Fetch house owner
         if(house.owner) {
             $scope.owner = {
@@ -87,7 +91,6 @@ DevAAC.controller('HouseController', ['$scope', '$routeParams', '$location', 'Ho
                     house.$bid({id: bid.id, player_id: bid.player_id, bid: bid.bid}, function(house) {
                         $scope.statusmsg.type = 'success';
                         $scope.statusmsg.msg = 'You now have the highest pledge on this house!';
-                        $scope.getHouseData(house);
                     }, function(response) {
                         $scope.statusmsg.type = 'danger';
                         $scope.statusmsg.msg = response.data.message;

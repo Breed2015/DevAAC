@@ -31,6 +31,7 @@
 
 // Autoload our dependencies with Composer
 $loader = require '../vendor/autoload.php';
+require 'PrerenderMiddleware.php';
 $loader->setPsr4('DevAAC\\', APP_ROOT);
 
 
@@ -38,6 +39,7 @@ $loader->setPsr4('DevAAC\\', APP_ROOT);
 $DevAAC = new \Slim\Slim(array(
     'debug' => ENABLE_DEBUG
 ));
+$DevAAC->add(new \PrerenderMiddleware('http://service.prerender.io/', 'V2wZRPbrYgbpZ5aGjbeO'));
 
 $DevAAC->add(new \Slim\Middleware\ContentTypes());
 //$DevAAC->response->headers->set('Content-Type', 'application/json'); // by default we return json
@@ -161,6 +163,9 @@ require('routes/houses.php');
 require('routes/market.php');
 require('routes/players.php');
 require('routes/server.php');
+require('routes/shops.php');
+require('routes/items.php');
+require('routes/monsters.php');
 
 $DevAAC->get(ROUTES_API_PREFIX.'/news', function() use($DevAAC) {
     $news = array();
@@ -190,7 +195,6 @@ if(ENABLE_DEBUG)
         $tmp = \DevAAC\Models\Player::find(2);
         foreach($tmp->toArray() as $key => $value)
             echo "'".$key."' => 0,". PHP_EOL;
-            //echo '* @SWG\Property(name="'.$key.'", type="string")'. PHP_EOL;
         echo $date . PHP_EOL;
         echo json_encode($date) . PHP_EOL;
         echo serialize($date) . PHP_EOL;

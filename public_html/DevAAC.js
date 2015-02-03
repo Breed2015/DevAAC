@@ -31,6 +31,7 @@ var Cookie = {
 // Initiate DevAAC
 var DevAAC = angular.module('DevAAC', ['ngRoute', 'ngResource', 'ngSanitize', 'ui.bootstrap']);
 
+
 DevAAC.run(['$rootScope', '$location', 'StatusMessage', function($rootScope, $location, StatusMessage) {
     $rootScope.$on('$routeChangeStart', function(e, curr, prev) {
         if (curr.$$route && curr.$$route.resolve) {
@@ -64,6 +65,59 @@ DevAAC.factory('authInterceptor', function() {
         }
     };
 });
+
+DevAAC.factory('StatusMessage', function() {
+    var _status = {
+        success: '',
+        error: '',
+        notice: ''
+    };
+    return {
+        success: function() {
+            var message = _status.success;
+            _status.success = '';
+            return message;
+        },
+        setSuccess: function(msg) {
+            _status.success = msg;
+        },
+        error: function() {
+            var message = _status.error;
+            _status.error = '';
+            return message;
+        },
+        setError: function(msg) {
+            _status.error = msg;
+        },
+        notice: function() {
+            var message = _status.notice;
+            _status.notice = '';
+            return message;
+        },
+        setNotice: function(msg) {
+            _status.notice = msg;
+        }
+    }
+});
+
+function generate(type, text) {
+    var n = noty({
+        text        : text,
+        type        : type,
+        dismissQueue: true,
+        layout      : 'topLeft',
+        closeWith   : ['click'],
+        theme       : 'relax',
+        maxVisible  : 4,
+        timeout: 5000,
+        animation   : {
+            open  : 'animated bounceInLeft',
+            close : 'animated bounceOutLeft',
+            easing: 'swing',
+            speed : 500
+        }
+    });
+}
 
 DevAAC.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptor');
